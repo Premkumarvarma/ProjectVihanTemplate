@@ -8,9 +8,6 @@ public class ServiceControllerUtils {
 		mresponse.setStatusMsg(statusMsg);
 		return mresponse;
 	}
-
-
-
 	/**
 	 * Prepares the error mobile response
 	 * 
