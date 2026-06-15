@@ -6,15 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.projectvihan.Dao.CoffeeDao;
 import com.example.projectvihan.Exception.AppDaoException;
 import com.example.projectvihan.Exception.RequestConstants;
 import com.example.projectvihan.model.Coffee;
-
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 @Service
 public class CoffeeDaoImpl implements CoffeeDao{
 	private static Logger logger = LoggerFactory.getLogger(CoffeeDaoImpl.class);
@@ -110,5 +109,6 @@ public class CoffeeDaoImpl implements CoffeeDao{
 		logger.debug("<<<<End of findAllCoffee method..........coffeeList" + coffeeList);
 		return coffeeList;
 	}
+	
 
 }
