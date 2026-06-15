@@ -109,5 +109,6 @@ public class CoffeeDaoImpl implements CoffeeDao{
 		logger.debug("<<<<End of findAllCoffee method..........coffeeList" + coffeeList);
 		return coffeeList;
 	}
+	
 
 }
