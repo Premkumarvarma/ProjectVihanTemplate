@@ -1,0 +1,23 @@
+#coffeeContainer{
+    display:flex;
+    justify-content:center;
+    margin-top:40px;
+}
+
+.card{
+    width:250px;
+    background:white;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0px 2px 10px rgba(0,0,0,0.3);
+    text-align:center;
+}
+
+button{
+    background:brown;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+}
