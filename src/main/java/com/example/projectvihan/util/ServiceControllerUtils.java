@@ -1,5 +1,8 @@
 package com.example.projectvihan.util;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ServiceControllerUtils {
 	
 	public ServiceResponse prepareMobileResponseErrorStatus(ServiceResponse mresponse, String errorCode, String statusMsg) {
