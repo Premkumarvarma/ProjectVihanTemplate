@@ -14,7 +14,7 @@ import com.example.projectvihan.service.CartService;
 
 @Service
 public class CartServiceImpl implements CartService{
-	private static Logger logger = LoggerFactory.getLogger(CoffeeServiceImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 	
 	@Autowired
 	private CartRepository cartRepository;
