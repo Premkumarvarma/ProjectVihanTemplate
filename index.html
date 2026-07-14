@@ -1,74 +1,141 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>Prem Coffee Shop</title>
 
-```
-<link rel="stylesheet" href="css/style.css">
-```
+    <link rel="stylesheet"
+        href="css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
-```
-<header>
-    <h1>☕ Prem Coffee Shop</h1>
-</header>
+    <div class="overlay">
 
-<section class="form-container">
+        <!-- Header -->
 
-    <h2>☕ Add Coffee</h2>
+        <header>
 
-    <input type="text"
-           id="coffeeName"
-           placeholder="Coffee Name">
+            <h1>
 
-    <input type="number"
-           id="price"
-           placeholder="Price">
+                <i class="fas fa-mug-hot"></i>
 
-    <input type="text"
-           id="category"
-           placeholder="Category">
+                Prem Coffee Shop
 
-    <select id="available">
-        <option value="true">Available</option>
-        <option value="false">Not Available</option>
-    </select>
+            </h1>
 
-    <button onclick="saveCoffeeData()">
-        ☕ Save Coffee
-    </button>
+            <p>
 
-</section>
+                Great Coffee, Great Day!
 
-<div class="cart-section">
+            </p>
 
-    <button onclick="viewCart()">
-        🛒 View Coffees
-    </button>
+        </header>
 
-</div>
+        <!-- Add Coffee Section -->
 
-<section id="coffeeSection" style="display:none">
+        <section class="add-coffee">
 
-    <h2 class="section-title">
-        ☕ Coffee Menu
-    </h2>
+            <h2>
 
-    <div id="coffeeContainer">
+                <i class="fas fa-coffee"></i>
+
+                Add Coffee
+
+            </h2>
+
+            <div class="form-row">
+
+                <input
+                    type="text"
+                    id="coffeeName"
+                    placeholder="Coffee Name">
+
+                <input
+                    type="number"
+                    id="price"
+                    placeholder="Price">
+
+                <input
+                    type="text"
+                    id="category"
+                    placeholder="Category">
+
+                <select id="available">
+
+                    <option value="true">
+                        Available
+                    </option>
+
+                    <option value="false">
+                        Not Available
+                    </option>
+
+                </select>
+
+                <button
+                    id="saveButton"
+                    onclick="saveOrUpdateCoffee()">
+
+                    <i class="fas fa-mug-hot"></i>
+
+                    Save Coffee
+
+                </button>
+
+            </div>
+
+            <button
+                class="cart-btn"
+                onclick="findAllCoffee()">
+
+                <i class="fas fa-cart-shopping"></i>
+
+                View Coffees
+
+            </button>
+
+        </section>
+
+        <!-- Coffee Menu -->
+
+        <section class="menu-section">
+
+            <h2>
+
+                <i class="fas fa-mug-hot"></i>
+
+                Coffee Menu
+
+            </h2>
+
+            <div
+                id="coffeeContainer"
+                class="coffee-container">
+
+            </div>
+
+        </section>
 
     </div>
 
-</section>
+    <!-- JavaScript Files -->
 
+   <script src="js/common.js"></script>
+<script src="js/coffee.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/order.js"></script>
 <script src="js/app.js"></script>
-```
 
 </body>
 
