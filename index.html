@@ -1,3 +1,75 @@
-<div id="coffeeContainer">
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prem Coffee Shop</title>
+
+```
+<link rel="stylesheet" href="css/style.css">
+```
+
+</head>
+
+<body>
+
+```
+<header>
+    <h1>☕ Prem Coffee Shop</h1>
+</header>
+
+<section class="form-container">
+
+    <h2>☕ Add Coffee</h2>
+
+    <input type="text"
+           id="coffeeName"
+           placeholder="Coffee Name">
+
+    <input type="number"
+           id="price"
+           placeholder="Price">
+
+    <input type="text"
+           id="category"
+           placeholder="Category">
+
+    <select id="available">
+        <option value="true">Available</option>
+        <option value="false">Not Available</option>
+    </select>
+
+    <button onclick="saveCoffeeData()">
+        ☕ Save Coffee
+    </button>
+
+</section>
+
+<div class="cart-section">
+
+    <button onclick="viewCart()">
+        🛒 View Coffees
+    </button>
 
 </div>
+
+<section id="coffeeSection" style="display:none">
+
+    <h2 class="section-title">
+        ☕ Coffee Menu
+    </h2>
+
+    <div id="coffeeContainer">
+
+    </div>
+
+</section>
+
+<script src="js/app.js"></script>
+```
+
+</body>
+
+</html>
