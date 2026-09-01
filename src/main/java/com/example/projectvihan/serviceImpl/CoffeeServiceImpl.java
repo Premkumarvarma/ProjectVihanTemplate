@@ -102,4 +102,17 @@ public class CoffeeServiceImpl implements CoffeeService{
 		return coffeeList;
 	}
 
+	@Override
+	public List<Coffee> filtercoffeeByCategory(String category) throws AppServiceException {
+		logger.info("Start of filtercoffeeByCategory service method >>>");
+		List<Coffee> coffeeList = null;
+		try {
+			coffeeList = coffeeRepo.findAll().stream().filter(coffee -> coffee.getCategory().equalsIgnoreCase(category)).toList();
+		}catch (Exception e) {
+			logger.error("Error while fetching coffee list", e);
+			throw new AppServiceException("DB_ERROR","Unable to fetch coffee list",e);
+		}
+		return coffeeList;
+	}
+
 }

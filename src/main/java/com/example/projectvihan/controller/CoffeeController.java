@@ -131,12 +131,36 @@ public class CoffeeController {
 
 	@GetMapping("/findAllCoffee")
 	public ResponseEntity<?> findAllCoffee() throws AppServiceException {
-		logger.info("start of delete coffee method.....................");
+		logger.info("start of findAllCoffee coffee method.....................");
 		ResponseEntity<?> resp = null;
 		ServiceResponse restResponse = new ServiceResponse();
 		try {
 
 			List<Coffee> coffee = coffeeService.findAllCoffee();
+			if (coffee != null) {
+				restResponse.addDataObject("coffee", coffee);
+				restResponse = scutils.prepareMobileResponseSuccessStatus(restResponse, "Successfully fetch coffeeList");
+				resp = new ResponseEntity<ServiceResponse>(restResponse, HttpStatus.OK);
+			} else {
+				restResponse.addDataObject("coffee", coffee);
+				restResponse = scutils.prepareMobileResponseInvalidData(restResponse, "Empty coffee list");
+				resp = new ResponseEntity<ServiceResponse>(restResponse, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			restResponse = scutils.prepareMobileResponseErrorStatus(restResponse, AppConstants.ERRORCODE,e.getMessage());
+			resp = new ResponseEntity<ServiceResponse>(restResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return resp;
+	}
+	
+	@GetMapping("/filtercoffeeByCategory")
+	public ResponseEntity<?> filtercoffeeByCategory(String category) throws AppServiceException {
+		logger.info("start of filtercoffeeByCategory  method.....................");
+		ResponseEntity<?> resp = null;
+		ServiceResponse restResponse = new ServiceResponse();
+		try {
+
+			List<Coffee> coffee = coffeeService.filtercoffeeByCategory(category);
 			if (coffee != null) {
 				restResponse.addDataObject("coffee", coffee);
 				restResponse = scutils.prepareMobileResponseSuccessStatus(restResponse, "Successfully fetch coffeeList");

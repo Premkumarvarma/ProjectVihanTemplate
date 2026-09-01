@@ -34,5 +34,13 @@ public interface CoffeeService {
 	 * @return
 	 */
 	public List<Coffee> findAllCoffee()throws AppServiceException;
+	
+	/**
+	 * 
+	 * @param category
+	 * @return
+	 * @throws AppServiceException
+	 */
+	public List<Coffee> filtercoffeeByCategory (String category) throws AppServiceException;
 
 }
