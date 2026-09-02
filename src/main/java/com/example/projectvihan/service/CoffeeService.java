@@ -42,5 +42,7 @@ public interface CoffeeService {
 	 * @throws AppServiceException
 	 */
 	public List<Coffee> filtercoffeeByCategory (String category) throws AppServiceException;
+	
+	
 
 }
