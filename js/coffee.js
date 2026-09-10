@@ -2,11 +2,13 @@ const BASE_URL = "http://localhost:8090/coffee";
 
 let updateCoffeeId = null;
 
+
 /*
 =====================================
 GET ALL COFFEES
 =====================================
 */
+
 async function findAllCoffee() {
 
     try {
@@ -29,22 +31,27 @@ async function findAllCoffee() {
 
 }
 
+
 /*
 =====================================
 SAVE COFFEE
 =====================================
 */
+
 async function saveCoffeeData() {
 
     const coffee = {
 
-        coffeeName: document.getElementById("coffeeName").value,
+        coffeeName:
+            document.getElementById("coffeeName").value,
 
-        price: Number(
-            document.getElementById("price").value
-        ),
+        price:
+            Number(
+                document.getElementById("price").value
+            ),
 
-        category: document.getElementById("category").value,
+        category:
+            document.getElementById("category").value,
 
         available:
             document.getElementById("available").value === "true"
@@ -93,6 +100,101 @@ async function saveCoffeeData() {
 
 }
 
+
+/*
+=====================================
+GET COFFEE IMAGE
+=====================================
+*/
+
+function getCoffeeImage(coffeeName) {
+
+    const name =
+        String(coffeeName).toLowerCase();
+
+
+    /*
+    ================================
+    CAPPUCCINO
+    ================================
+    */
+
+    if (name.includes("cappuccino")) {
+
+        return "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600";
+
+    }
+
+
+    /*
+    ================================
+    BLACK COFFEE
+    ================================
+    */
+
+    if (
+        name.includes("black coffee") ||
+        name.includes("black")
+    ) {
+
+        return "https://images.unsplash.com/photo-1497636577773-f1231844b336?w=600";
+
+    }
+
+
+    /*
+    ================================
+    AMERICANO
+    ================================
+    */
+
+    if (name.includes("americano")) {
+
+        return "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=600";
+
+    }
+
+
+    /*
+    ================================
+    LATTE
+    ================================
+    */
+
+    if (name.includes("latte")) {
+
+        return "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600";
+
+    }
+
+
+    /*
+    ================================
+    FILTER COFFEE
+    ================================
+    */
+
+    if (
+        name.includes("filter coffee") ||
+        name.includes("filter")
+    ) {
+
+        return "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600";
+
+    }
+
+
+    /*
+    ================================
+    DEFAULT COFFEE
+    ================================
+    */
+
+    return "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600";
+
+}
+
+
 /*
 =====================================
 DISPLAY COFFEE
@@ -115,18 +217,40 @@ function displayCoffee(coffeeList) {
 
     }
 
+
     coffeeList.forEach(coffee => {
+
+
+        /*
+        ================================
+        GET IMAGE FOR THIS COFFEE
+        ================================
+        */
+
+        const coffeeImage =
+            getCoffeeImage(coffee.coffeeName);
+
+
+        /*
+        ================================
+        CREATE COFFEE CARD
+        ================================
+        */
 
         container.innerHTML += `
 
         <div class="coffee-card">
 
             <img
-            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600">
+                src="${coffeeImage}"
+                alt="${coffee.coffeeName}"
+            >
 
             <div class="card-body">
 
-                <h3>${coffee.coffeeName}</h3>
+                <h3>
+                    ${coffee.coffeeName}
+                </h3>
 
                 <p>
                     Category :
@@ -146,26 +270,28 @@ function displayCoffee(coffeeList) {
                 <div class="btn-group">
 
                     <button
-                    class="view"
-                    onclick="findCoffeeById(${coffee.coffeeId})">
+                        class="view"
+                        onclick="findCoffeeById(${coffee.coffeeId})">
 
-                    View
-
-                    </button>
-
-                    <button
-                    class="edit"
-                    onclick="editCoffee(${coffee.coffeeId})">
-
-                    Edit
+                        View
 
                     </button>
 
-                    <button
-                    class="delete"
-                    onclick="deleteCoffee(${coffee.coffeeId})">
 
-                    Delete
+                    <button
+                        class="edit"
+                        onclick="editCoffee(${coffee.coffeeId})">
+
+                        Edit
+
+                    </button>
+
+
+                    <button
+                        class="delete"
+                        onclick="deleteCoffee(${coffee.coffeeId})">
+
+                        Delete
 
                     </button>
 
@@ -180,6 +306,7 @@ function displayCoffee(coffeeList) {
     });
 
 }
+
 
 /*
 =====================================
@@ -199,7 +326,8 @@ async function findCoffeeById(id) {
 
         const data = await response.json();
 
-        const coffee = data.data.coffee;
+        const coffee =
+            data.data.coffee;
 
         alert(
 
@@ -223,6 +351,7 @@ Available : ${coffee.available}`
 
 }
 
+
 /*
 =====================================
 EDIT COFFEE
@@ -241,9 +370,25 @@ async function editCoffee(id) {
 
         const data = await response.json();
 
-        const coffee = data.data.coffee;
+        const coffee =
+            data.data.coffee;
 
-        updateCoffeeId = coffee.coffeeId;
+
+        /*
+        ================================
+        STORE ID
+        ================================
+        */
+
+        updateCoffeeId =
+            coffee.coffeeId;
+
+
+        /*
+        ================================
+        FILL FORM
+        ================================
+        */
 
         document.getElementById("coffeeName").value =
             coffee.coffeeName;
@@ -256,6 +401,13 @@ async function editCoffee(id) {
 
         document.getElementById("available").value =
             coffee.available;
+
+
+        /*
+        ================================
+        CHANGE BUTTON TEXT
+        ================================
+        */
 
         document.getElementById("saveButton").innerHTML =
             "Update Coffee";
@@ -270,6 +422,7 @@ async function editCoffee(id) {
 
 }
 
+
 /*
 =====================================
 UPDATE COFFEE
@@ -280,7 +433,8 @@ async function updateCoffee() {
 
     const coffee = {
 
-        coffeeId: updateCoffeeId,
+        coffeeId:
+            updateCoffeeId,
 
         coffeeName:
             document.getElementById("coffeeName").value,
@@ -297,6 +451,7 @@ async function updateCoffee() {
             document.getElementById("available").value === "true"
 
     };
+
 
     try {
 
@@ -322,14 +477,43 @@ async function updateCoffee() {
 
         await response.json();
 
+
         alert("Coffee Updated Successfully");
 
+
+        /*
+        ================================
+        RESET UPDATE ID
+        ================================
+        */
+
         updateCoffeeId = null;
+
+
+        /*
+        ================================
+        RESET BUTTON
+        ================================
+        */
 
         document.getElementById("saveButton").innerHTML =
             "Save Coffee";
 
+
+        /*
+        ================================
+        CLEAR FORM
+        ================================
+        */
+
         clearForm();
+
+
+        /*
+        ================================
+        REFRESH COFFEE LIST
+        ================================
+        */
 
         findAllCoffee();
 
@@ -342,6 +526,7 @@ async function updateCoffee() {
     }
 
 }
+
 
 /*
 =====================================
@@ -365,6 +550,7 @@ function saveOrUpdateCoffee() {
 
 }
 
+
 /*
 =====================================
 DELETE
@@ -378,6 +564,7 @@ async function deleteCoffee(id) {
         return;
 
     }
+
 
     try {
 
@@ -393,7 +580,15 @@ async function deleteCoffee(id) {
 
         );
 
+
         alert("Coffee Deleted Successfully");
+
+
+        /*
+        ================================
+        REFRESH COFFEE LIST
+        ================================
+        */
 
         findAllCoffee();
 

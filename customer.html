@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Prem Coffee Shop - Customer</title>
+
+
+    <!-- Customer CSS -->
+
+    <link rel="stylesheet"
+        href="css/customer.css">
+
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <header class="customer-header">
+
+        <div class="header-content">
+
+            <div>
+
+                <h1>
+                    <i class="fa-solid fa-mug-hot"></i>
+                    Prem Coffee Shop
+                </h1>
+
+                <p>
+                    Fresh Coffee, Happy Moments!
+                </p>
+
+            </div>
+
+
+            <!-- CART BUTTON -->
+
+            <button
+                class="cart-button"
+                onclick="openCart()">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Cart
+
+                <span id="cartCount">
+                    0
+                </span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main>
+
+
+        <!-- =================================
+             MENU SECTION
+        ================================== -->
+
+        <section class="menu-section">
+
+            <div class="section-title">
+
+                <h2>
+                    <i class="fa-solid fa-mug-hot"></i>
+                    Our Coffee Menu
+                </h2>
+
+                <p>
+                    Choose your favorite coffee
+                </p>
+
+            </div>
+
+
+            <!-- Coffee cards will appear here -->
+
+            <div
+                id="customerCoffeeContainer"
+                class="coffee-container">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             CART SECTION
+        ================================== -->
+
+        <section
+            id="cartSection"
+            class="cart-section hidden">
+
+
+            <div class="cart-header">
+
+                <h2>
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    Your Cart
+
+                </h2>
+
+
+                <button
+                    class="close-cart"
+                    onclick="closeCart()">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Cart items -->
+
+            <div
+                id="cartItems"
+                class="cart-items">
+
+            </div>
+
+
+            <!-- Cart total -->
+
+            <div class="cart-total">
+
+                <h3>
+
+                    Total:
+
+                    <span id="cartTotal">
+                        ₹0
+                    </span>
+
+                </h3>
+
+
+                <button
+                    class="place-order-button"
+                    onclick="placeOrder()">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Place Order
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================
+         CUSTOMER JAVASCRIPT
+    ====================================== -->
+
+    <script src="js/customer.js"></script>
+
+</body>
+
+</html>

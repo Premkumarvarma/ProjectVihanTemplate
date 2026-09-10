@@ -176,3 +176,13 @@ header p{
 
     cursor:pointer;
 }
+
+.coffee-icon {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f3e5d0;
+    font-size: 90px;
+    color: #6f4e37;
+}
