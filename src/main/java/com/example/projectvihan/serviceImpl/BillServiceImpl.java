@@ -14,8 +14,8 @@ import com.example.projectvihan.service.BillService;
 
 @Service
 public class BillServiceImpl implements BillService{
-private static Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
-	
+	private static Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
+
 	@Autowired
 	private BillRepository billRepository;
 
@@ -30,7 +30,7 @@ private static Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
 			logger.error("Error while saving Bill", e);
 			throw new AppServiceException("DB_ERROR","Unable to save bill",e);
 		}
-	
+
 	}
 
 	@Override
@@ -44,7 +44,7 @@ private static Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
 			logger.error("Error while saving Bill", e);
 			throw new AppServiceException("DB_ERROR","Unable to update bill",e);
 		}
-	
+
 	}
 
 	@Override
@@ -58,7 +58,7 @@ private static Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
 			}
 			logger.info("End of deleteBillId service method <<<");
 			return billObj;
-			
+
 		}catch (Exception e) {
 			logger.error("Error while deleting Bill", e);
 			throw new AppServiceException("DB_ERROR","Unable to delete bill",e);
@@ -78,7 +78,7 @@ private static Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
 			}
 			logger.info("End of findbyid service method <<<");
 			return billObj;
-			
+
 		}catch (Exception e) {
 			logger.error("Error while finding the  Bill", e);
 			throw new AppServiceException("DB_ERROR","Unable to find bill",e);
@@ -92,7 +92,7 @@ private static Logger logger = LoggerFactory.getLogger(BillServiceImpl.class);
 		try {
 			billObj = billRepository.findAll();
 			logger.info("successfully fetch the billlist");
-			
+
 		}catch (Exception e) {
 			logger.error("Error while finding the  Bill", e);
 			throw new AppServiceException("DB_ERROR","Unable to find bill",e);
