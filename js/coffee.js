@@ -17,11 +17,27 @@ async function findAllCoffee() {
             `${BASE_URL}/findAllCoffee`
         );
 
+        if (!response.ok) {
+            throw new Error("Failed to fetch coffee list");
+        }
+
         const data = await response.json();
 
         console.log("Coffee List :", data);
 
-        displayCoffee(data.data.coffee);
+        if (
+            data &&
+            data.data &&
+            Array.isArray(data.data.coffee)
+        ) {
+
+            displayCoffee(data.data.coffee);
+
+        } else {
+
+            displayCoffee([]);
+
+        }
 
     } catch (error) {
 
@@ -43,7 +59,7 @@ async function saveCoffeeData() {
     const coffee = {
 
         coffeeName:
-            document.getElementById("coffeeName").value,
+            document.getElementById("coffeeName").value.trim(),
 
         price:
             Number(
@@ -51,12 +67,40 @@ async function saveCoffeeData() {
             ),
 
         category:
-            document.getElementById("category").value,
+            document.getElementById("category").value.trim(),
 
         available:
             document.getElementById("available").value === "true"
 
     };
+
+
+    if (!coffee.coffeeName) {
+
+        alert("Please enter coffee name");
+
+        return;
+
+    }
+
+
+    if (!coffee.price || coffee.price <= 0) {
+
+        alert("Please enter a valid price");
+
+        return;
+
+    }
+
+
+    if (!coffee.category) {
+
+        alert("Please enter category");
+
+        return;
+
+    }
+
 
     try {
 
@@ -80,13 +124,33 @@ async function saveCoffeeData() {
 
         );
 
-        const data = await response.json();
 
-        console.log(data);
+        if (!response.ok) {
 
-        alert("Coffee Saved Successfully");
+            throw new Error(
+                "Failed to save coffee"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Save Response :",
+            data
+        );
+
+
+        alert(
+            "Coffee Saved Successfully"
+        );
+
 
         clearForm();
+
 
         findAllCoffee();
 
@@ -94,7 +158,14 @@ async function saveCoffeeData() {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Save Error :",
+            error
+        );
+
+        alert(
+            "Unable to save coffee"
+        );
 
     }
 
@@ -103,94 +174,164 @@ async function saveCoffeeData() {
 
 /*
 =====================================
-GET COFFEE IMAGE
+GET PRODUCT IMAGE
+COFFEE + THICK SHAKE + MILKSHAKE
 =====================================
 */
 
 function getCoffeeImage(coffeeName) {
 
-    const name =
-        String(coffeeName).toLowerCase();
+    const name = String(coffeeName)
+        .toLowerCase()
+        .trim();
 
 
     /*
-    ================================
-    CAPPUCCINO
-    ================================
+    =================================
+    COFFEE
+    =================================
     */
 
-    if (name.includes("cappuccino")) {
 
-        return "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600";
+    // Cappuccino
+
+    if (
+        name.includes("cappuccino")
+    ) {
+
+        return "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800";
 
     }
 
 
-    /*
-    ================================
-    BLACK COFFEE
-    ================================
-    */
+    // Black Coffee
 
     if (
         name.includes("black coffee") ||
-        name.includes("black")
+        name === "black"
     ) {
 
-        return "https://images.unsplash.com/photo-1497636577773-f1231844b336?w=600";
+        return "https://images.unsplash.com/photo-1497636577773-f1231844b336?w=800";
 
     }
 
 
-    /*
-    ================================
-    AMERICANO
-    ================================
-    */
+    // Americano
 
-    if (name.includes("americano")) {
+    if (
+        name.includes("americano")
+    ) {
 
-        return "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=600";
+        return "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=800";
 
     }
 
 
-    /*
-    ================================
-    LATTE
-    ================================
-    */
+    // Latte
 
-    if (name.includes("latte")) {
+    if (
+        name.includes("latte")
+    ) {
 
-        return "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600";
+        return "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800";
 
     }
 
 
-    /*
-    ================================
-    FILTER COFFEE
-    ================================
-    */
+    // Filter Coffee
 
     if (
         name.includes("filter coffee") ||
         name.includes("filter")
     ) {
 
-        return "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600";
+        return "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800";
 
     }
 
 
     /*
-    ================================
-    DEFAULT COFFEE
-    ================================
+    =================================
+    THICK SHAKES / MILKSHAKES
+    =================================
     */
 
-    return "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600";
+
+    // Belgium Chocolate
+
+    if (
+        name.includes("belgium chocolate") ||
+        name.includes("belgian chocolate") ||
+        name.includes("belgium") ||
+        name.includes("belgian")
+    ) {
+
+        return "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=800";
+
+    }
+
+
+    // Mango Milkshake
+
+    if (
+        name.includes("mango milkshake") ||
+        name.includes("mango shake") ||
+        name.includes("mango")
+    ) {
+
+        return "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=800";
+
+    }
+
+
+    // Oreo Thick Shake
+
+    if (
+        name.includes("oreo thick shake") ||
+        name.includes("oreo milkshake") ||
+        name.includes("oreo shake") ||
+        name.includes("oreo")
+    ) {
+
+        return "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800";
+
+    }
+
+
+    // Chocolate Milkshake
+
+    if (
+        name.includes("chocolate milkshake") ||
+        name.includes("chocolate shake") ||
+        name.includes("chocolate thick shake")
+    ) {
+
+        return "https://images.unsplash.com/photo-1577805947697-89e18249d767?w=800";
+
+    }
+
+
+    // Normal Milkshake
+
+    if (
+        name.includes("milkshake") ||
+        name.includes("milk shake") ||
+        name.includes("thick shake") ||
+        name.includes("thickshake")
+    ) {
+
+        return "https://images.unsplash.com/photo-1553787499-6f7c1f0e8f1f?w=800";
+
+    }
+
+
+    /*
+    =================================
+    DEFAULT IMAGE
+    =================================
+    */
+
+    return "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800";
 
 }
 
@@ -204,11 +345,29 @@ DISPLAY COFFEE
 function displayCoffee(coffeeList) {
 
     const container =
-        document.getElementById("coffeeContainer");
+        document.getElementById(
+            "coffeeContainer"
+        );
+
+
+    if (!container) {
+
+        console.error(
+            "coffeeContainer not found"
+        );
+
+        return;
+
+    }
+
 
     container.innerHTML = "";
 
-    if (!coffeeList || coffeeList.length === 0) {
+
+    if (
+        !coffeeList ||
+        coffeeList.length === 0
+    ) {
 
         container.innerHTML =
             "<h2>No Coffee Available</h2>";
@@ -218,92 +377,112 @@ function displayCoffee(coffeeList) {
     }
 
 
-    coffeeList.forEach(coffee => {
+    coffeeList.forEach(
+        coffee => {
 
 
-        /*
-        ================================
-        GET IMAGE FOR THIS COFFEE
-        ================================
-        */
+            /*
+            ==============================
+            GET IMAGE
+            ==============================
+            */
 
-        const coffeeImage =
-            getCoffeeImage(coffee.coffeeName);
-
-
-        /*
-        ================================
-        CREATE COFFEE CARD
-        ================================
-        */
-
-        container.innerHTML += `
-
-        <div class="coffee-card">
-
-            <img
-                src="${coffeeImage}"
-                alt="${coffee.coffeeName}"
-            >
-
-            <div class="card-body">
-
-                <h3>
-                    ${coffee.coffeeName}
-                </h3>
-
-                <p>
-                    Category :
-                    ${coffee.category}
-                </p>
-
-                <p>
-                    Price :
-                    ₹${coffee.price}
-                </p>
-
-                <p>
-                    Available :
-                    ${coffee.available ? "Yes" : "No"}
-                </p>
-
-                <div class="btn-group">
-
-                    <button
-                        class="view"
-                        onclick="findCoffeeById(${coffee.coffeeId})">
-
-                        View
-
-                    </button>
+            const coffeeImage =
+                getCoffeeImage(
+                    coffee.coffeeName
+                );
 
 
-                    <button
-                        class="edit"
-                        onclick="editCoffee(${coffee.coffeeId})">
+            /*
+            ==============================
+            CREATE CARD
+            ==============================
+            */
 
-                        Edit
+            container.innerHTML += `
 
-                    </button>
+            <div class="coffee-card">
+
+                <img
+                    src="${coffeeImage}"
+                    alt="${coffee.coffeeName}"
+                    onerror="this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800'"
+                >
 
 
-                    <button
-                        class="delete"
-                        onclick="deleteCoffee(${coffee.coffeeId})">
+                <div class="card-body">
 
-                        Delete
+                    <h3>
+                        ${coffee.coffeeName}
+                    </h3>
 
-                    </button>
+
+                    <p>
+
+                        Category :
+                        ${coffee.category}
+
+                    </p>
+
+
+                    <p>
+
+                        Price :
+                        ₹${coffee.price}
+
+                    </p>
+
+
+                    <p>
+
+                        Available :
+                        ${coffee.available
+                            ? "Yes"
+                            : "No"}
+
+                    </p>
+
+
+                    <div class="btn-group">
+
+
+                        <button
+                            class="view"
+                            onclick="findCoffeeById(${coffee.coffeeId})">
+
+                            View
+
+                        </button>
+
+
+                        <button
+                            class="edit"
+                            onclick="editCoffee(${coffee.coffeeId})">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="delete"
+                            onclick="deleteCoffee(${coffee.coffeeId})">
+
+                            Delete
+
+                        </button>
+
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            `;
 
-        `;
-
-    });
+        }
+    );
 
 }
 
@@ -324,10 +503,23 @@ async function findCoffeeById(id) {
 
         );
 
-        const data = await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Coffee not found"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
 
         const coffee =
             data.data.coffee;
+
 
         alert(
 
@@ -345,7 +537,10 @@ Available : ${coffee.available}`
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Find Error :",
+            error
+        );
 
     }
 
@@ -368,55 +563,66 @@ async function editCoffee(id) {
 
         );
 
-        const data = await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Coffee not found"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
 
         const coffee =
             data.data.coffee;
 
 
-        /*
-        ================================
-        STORE ID
-        ================================
-        */
-
         updateCoffeeId =
             coffee.coffeeId;
 
 
-        /*
-        ================================
-        FILL FORM
-        ================================
-        */
-
-        document.getElementById("coffeeName").value =
+        document.getElementById(
+            "coffeeName"
+        ).value =
             coffee.coffeeName;
 
-        document.getElementById("price").value =
+
+        document.getElementById(
+            "price"
+        ).value =
             coffee.price;
 
-        document.getElementById("category").value =
+
+        document.getElementById(
+            "category"
+        ).value =
             coffee.category;
 
-        document.getElementById("available").value =
-            coffee.available;
+
+        document.getElementById(
+            "available"
+        ).value =
+            String(coffee.available);
 
 
-        /*
-        ================================
-        CHANGE BUTTON TEXT
-        ================================
-        */
-
-        document.getElementById("saveButton").innerHTML =
+        document.getElementById(
+            "saveButton"
+        ).innerHTML =
             "Update Coffee";
+
 
     }
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Edit Error :",
+            error
+        );
 
     }
 
@@ -437,18 +643,26 @@ async function updateCoffee() {
             updateCoffeeId,
 
         coffeeName:
-            document.getElementById("coffeeName").value,
+            document.getElementById(
+                "coffeeName"
+            ).value.trim(),
 
         price:
             Number(
-                document.getElementById("price").value
+                document.getElementById(
+                    "price"
+                ).value
             ),
 
         category:
-            document.getElementById("category").value,
+            document.getElementById(
+                "category"
+            ).value.trim(),
 
         available:
-            document.getElementById("available").value === "true"
+            document.getElementById(
+                "available"
+            ).value === "true"
 
     };
 
@@ -465,55 +679,47 @@ async function updateCoffee() {
 
                 headers: {
 
-                    "Content-Type": "application/json"
+                    "Content-Type":
+                        "application/json"
 
                 },
 
-                body: JSON.stringify(coffee)
+                body:
+                    JSON.stringify(coffee)
 
             }
 
         );
 
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to update coffee"
+            );
+
+        }
+
+
         await response.json();
 
 
-        alert("Coffee Updated Successfully");
+        alert(
+            "Coffee Updated Successfully"
+        );
 
-
-        /*
-        ================================
-        RESET UPDATE ID
-        ================================
-        */
 
         updateCoffeeId = null;
 
 
-        /*
-        ================================
-        RESET BUTTON
-        ================================
-        */
-
-        document.getElementById("saveButton").innerHTML =
+        document.getElementById(
+            "saveButton"
+        ).innerHTML =
             "Save Coffee";
 
 
-        /*
-        ================================
-        CLEAR FORM
-        ================================
-        */
-
         clearForm();
 
-
-        /*
-        ================================
-        REFRESH COFFEE LIST
-        ================================
-        */
 
         findAllCoffee();
 
@@ -521,7 +727,14 @@ async function updateCoffee() {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Update Error :",
+            error
+        );
+
+        alert(
+            "Unable to update coffee"
+        );
 
     }
 
@@ -536,7 +749,9 @@ SAVE OR UPDATE
 
 function saveOrUpdateCoffee() {
 
-    if (updateCoffeeId == null) {
+    if (
+        updateCoffeeId === null
+    ) {
 
         saveCoffeeData();
 
@@ -559,7 +774,11 @@ DELETE
 
 async function deleteCoffee(id) {
 
-    if (!confirm("Delete Coffee ?")) {
+    if (
+        !confirm(
+            "Delete Coffee ?"
+        )
+    ) {
 
         return;
 
@@ -568,27 +787,33 @@ async function deleteCoffee(id) {
 
     try {
 
-        await fetch(
+        const response =
+            await fetch(
 
-            `${BASE_URL}/deleteCoffeeById?id=${id}`,
+                `${BASE_URL}/deleteCoffeeById?id=${id}`,
 
-            {
+                {
 
-                method: "DELETE"
+                    method: "DELETE"
 
-            }
+                }
 
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to delete coffee"
+            );
+
+        }
+
+
+        alert(
+            "Coffee Deleted Successfully"
         );
 
-
-        alert("Coffee Deleted Successfully");
-
-
-        /*
-        ================================
-        REFRESH COFFEE LIST
-        ================================
-        */
 
         findAllCoffee();
 
@@ -596,10 +821,15 @@ async function deleteCoffee(id) {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Delete Error :",
+            error
+        );
+
+        alert(
+            "Unable to delete coffee"
+        );
 
     }
 
-
-    
 }

@@ -4,7 +4,6 @@ CUSTOMER COFFEE SHOP
 =====================================
 */
 
-
 const BASE_URL =
     "http://localhost:8090/coffee";
 
@@ -20,20 +19,23 @@ let customerCart = [];
 
 /*
 =====================================
-LOAD CUSTOMER PAGE
+PAGE LOAD
 =====================================
 */
 
-window.onload = function () {
+window.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    findCustomerCoffees();
+        findCustomerCoffees();
 
-};
+    }
+);
 
 
 /*
 =====================================
-GET ALL COFFEES
+GET ALL PRODUCTS
 =====================================
 */
 
@@ -41,15 +43,16 @@ async function findCustomerCoffees() {
 
     try {
 
-        const response = await fetch(
-            `${BASE_URL}/findAllCoffee`
-        );
+        const response =
+            await fetch(
+                `${BASE_URL}/findAllCoffee`
+            );
 
 
         if (!response.ok) {
 
             throw new Error(
-                "Unable to fetch coffee data"
+                "Unable to fetch products"
             );
 
         }
@@ -60,14 +63,17 @@ async function findCustomerCoffees() {
 
 
         console.log(
-            "Customer Coffee List :",
+            "Customer Product List :",
             data
         );
 
 
         if (
+            data &&
             data.data &&
-            data.data.coffee
+            Array.isArray(
+                data.data.coffee
+            )
         ) {
 
             displayCustomerCoffees(
@@ -82,37 +88,44 @@ async function findCustomerCoffees() {
 
         }
 
-
     }
 
     catch (error) {
 
         console.error(
-            "Error fetching coffees :",
+            "Customer Error :",
             error
         );
 
 
-        document.getElementById(
-            "customerCoffeeContainer"
-        ).innerHTML = `
+        const container =
+            document.getElementById(
+                "customerCoffeeContainer"
+            );
 
-            <div class="empty-cart">
 
-                <i class="fa-solid fa-triangle-exclamation"></i>
+        if (container) {
 
-                <h2>
-                    Unable to load coffees
-                </h2>
+            container.innerHTML = `
 
-                <p>
-                    Please make sure the Spring Boot
-                    server is running.
-                </p>
+                <div class="empty-cart">
 
-            </div>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
 
-        `;
+                    <h2>
+                        Unable to Load Menu
+                    </h2>
+
+                    <p>
+                        Please make sure the
+                        Spring Boot server is running.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
 
     }
 
@@ -121,7 +134,8 @@ async function findCustomerCoffees() {
 
 /*
 =====================================
-GET COFFEE IMAGE
+GET PRODUCT IMAGE
+COFFEE + THICK SHAKE + MILKSHAKE
 =====================================
 */
 
@@ -129,98 +143,163 @@ function getCoffeeImage(coffeeName) {
 
     const name =
         String(coffeeName)
-        .toLowerCase();
+            .toLowerCase()
+            .trim();
 
 
     /*
-    ================================
-    CAPPUCCINO
-    ================================
+    =================================
+    COFFEE
+    =================================
     */
+
+
+    // Cappuccino
 
     if (
         name.includes("cappuccino")
     ) {
 
-        return "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600";
+        return "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800";
 
     }
 
 
-    /*
-    ================================
-    BLACK COFFEE
-    ================================
-    */
+    // Black Coffee
 
     if (
-        name.includes("black")
+        name.includes("black coffee") ||
+        name === "black"
     ) {
 
-        return "https://images.unsplash.com/photo-1497636577773-f1231844b336?w=600";
+        return "https://images.unsplash.com/photo-1497636577773-f1231844b336?w=800";
 
     }
 
 
-    /*
-    ================================
-    AMERICANO
-    ================================
-    */
+    // Americano
 
     if (
         name.includes("americano")
     ) {
 
-        return "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=600";
+        return "https://images.unsplash.com/photo-1551030173-122aabc4489c?w=800";
 
     }
 
 
-    /*
-    ================================
-    LATTE
-    ================================
-    */
+    // Latte
 
     if (
         name.includes("latte")
     ) {
 
-        return "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600";
+        return "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800";
 
     }
 
 
-    /*
-    ================================
-    FILTER COFFEE
-    ================================
-    */
+    // Filter Coffee
 
     if (
+        name.includes("filter coffee") ||
         name.includes("filter")
     ) {
 
-        return "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600";
+        return "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800";
 
     }
 
 
     /*
-    ================================
-    DEFAULT
-    ================================
+    =================================
+    THICK SHAKE
+    =================================
     */
 
-    return "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600";
+
+    // Belgium Chocolate
+
+    if (
+        name.includes("belgium chocolate") ||
+        name.includes("belgian chocolate") ||
+        name.includes("belgium") ||
+        name.includes("belgian")
+    ) {
+
+        return "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=800";
+
+    }
+
+
+    // Mango Milkshake
+
+    if (
+        name.includes("mango milkshake") ||
+        name.includes("mango shake") ||
+        name.includes("mango")
+    ) {
+
+        return "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=800";
+
+    }
+
+
+    // Oreo Thick Shake
+
+    if (
+        name.includes("oreo thick shake") ||
+        name.includes("oreo milkshake") ||
+        name.includes("oreo shake") ||
+        name.includes("oreo")
+    ) {
+
+        return "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800";
+
+    }
+
+
+    // Chocolate Milkshake
+
+    if (
+        name.includes("chocolate milkshake") ||
+        name.includes("chocolate shake") ||
+        name.includes("chocolate thick shake")
+    ) {
+
+        return "https://images.unsplash.com/photo-1577805947697-89e18249d767?w=800";
+
+    }
+
+
+    // Normal Milkshake
+
+    if (
+        name.includes("milkshake") ||
+        name.includes("milk shake") ||
+        name.includes("thick shake") ||
+        name.includes("thickshake")
+    ) {
+
+        return "https://images.unsplash.com/photo-1553787499-6f7c1f0e8f1f?w=800";
+
+    }
+
+
+    /*
+    =================================
+    DEFAULT
+    =================================
+    */
+
+    return "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800";
 
 }
 
 
 /*
 =====================================
-DISPLAY CUSTOMER COFFEES
+DISPLAY CUSTOMER PRODUCTS
 =====================================
 */
 
@@ -232,6 +311,17 @@ function displayCustomerCoffees(
         document.getElementById(
             "customerCoffeeContainer"
         );
+
+
+    if (!container) {
+
+        console.error(
+            "customerCoffeeContainer not found"
+        );
+
+        return;
+
+    }
 
 
     container.innerHTML = "";
@@ -270,9 +360,9 @@ function displayCustomerCoffees(
 
 
             /*
-            ==========================
+            ==============================
             GET IMAGE
-            ==========================
+            ==============================
             */
 
             const coffeeImage =
@@ -282,120 +372,103 @@ function displayCustomerCoffees(
 
 
             /*
-            ==========================
-            CHECK CART
-            ==========================
+            ==============================
+            AVAILABLE
+            ==============================
             */
 
-            const existingItem =
-                customerCart.find(
-                    item =>
-                        item.coffeeId ===
-                        coffee.coffeeId
-                );
-
-
-            const quantity =
-                existingItem
-                    ? existingItem.quantity
-                    : 1;
-
-
-            /*
-            ==========================
-            AVAILABLE COFFEE
-            ==========================
-            */
-
-            if (coffee.available) {
+            if (
+                coffee.available === true
+            ) {
 
                 container.innerHTML += `
 
-                <div class="customer-coffee-card">
+                    <div class="customer-coffee-card">
 
-                    <img
-                        src="${coffeeImage}"
-                        alt="${coffee.coffeeName}"
-                    >
-
-
-                    <div class="customer-card-body">
-
-                        <h3>
-                            ${coffee.coffeeName}
-                        </h3>
+                        <img
+                            src="${coffeeImage}"
+                            alt="${coffee.coffeeName}"
+                            onerror="this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800'"
+                        >
 
 
-                        <p>
-                            <strong>
-                                Category:
-                            </strong>
+                        <div class="customer-card-body">
 
-                            ${coffee.category}
-                        </p>
+                            <h3>
+                                ${coffee.coffeeName}
+                            </h3>
 
 
-                        <p class="coffee-price">
+                            <p>
+                                <strong>
+                                    Category:
+                                </strong>
 
-                            ₹${coffee.price}
-
-                        </p>
-
-
-                        <p class="available">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                            Available
-
-                        </p>
+                                ${coffee.category}
+                            </p>
 
 
-                        <div class="quantity-area">
+                            <p class="coffee-price">
+
+                                ₹${coffee.price}
+
+                            </p>
+
+
+                            <p class="available">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Available
+
+                            </p>
+
+
+                            <div class="quantity-area">
+
+                                <button
+                                    onclick="decreaseQuantity(${coffee.coffeeId})">
+
+                                    <i class="fa-solid fa-minus"></i>
+
+                                </button>
+
+
+                                <span
+                                    id="quantity-${coffee.coffeeId}">
+
+                                    1
+
+                                </span>
+
+
+                                <button
+                                    onclick="increaseQuantity(${coffee.coffeeId})">
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                </button>
+
+                            </div>
+
 
                             <button
-                                onclick="decreaseQuantity(${coffee.coffeeId})">
+                                class="add-cart-button"
+                                onclick="addToCart(
+                                    ${coffee.coffeeId},
+                                    '${escapeQuotes(coffee.coffeeName)}',
+                                    ${coffee.price}
+                                )">
 
-                                <i class="fa-solid fa-minus"></i>
+                                <i class="fa-solid fa-cart-plus"></i>
 
-                            </button>
-
-
-                            <span
-                                id="quantity-${coffee.coffeeId}">
-
-                                ${quantity}
-
-                            </span>
-
-
-                            <button
-                                onclick="increaseQuantity(${coffee.coffeeId})">
-
-                                <i class="fa-solid fa-plus"></i>
+                                Add to Cart
 
                             </button>
 
                         </div>
 
-
-                        <button
-                            class="add-cart-button"
-                            onclick="addToCart(
-                                ${coffee.coffeeId},
-                                '${escapeQuotes(coffee.coffeeName)}',
-                                ${coffee.price}
-                            )">
-
-                            <i class="fa-solid fa-cart-plus"></i>
-
-                            Add to Cart
-
-                        </button>
-
                     </div>
-
-                </div>
 
                 `;
 
@@ -403,68 +476,69 @@ function displayCustomerCoffees(
 
 
             /*
-            ==========================
-            UNAVAILABLE COFFEE
-            ==========================
+            ==============================
+            UNAVAILABLE
+            ==============================
             */
 
             else {
 
                 container.innerHTML += `
 
-                <div class="customer-coffee-card">
+                    <div class="customer-coffee-card">
 
-                    <img
-                        src="${coffeeImage}"
-                        alt="${coffee.coffeeName}"
-                    >
-
-
-                    <div class="customer-card-body">
-
-                        <h3>
-                            ${coffee.coffeeName}
-                        </h3>
+                        <img
+                            src="${coffeeImage}"
+                            alt="${coffee.coffeeName}"
+                            onerror="this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800'"
+                        >
 
 
-                        <p>
-                            <strong>
-                                Category:
-                            </strong>
+                        <div class="customer-card-body">
 
-                            ${coffee.category}
-                        </p>
+                            <h3>
+                                ${coffee.coffeeName}
+                            </h3>
 
 
-                        <p class="coffee-price">
+                            <p>
+                                <strong>
+                                    Category:
+                                </strong>
 
-                            ₹${coffee.price}
-
-                        </p>
-
-
-                        <p class="unavailable">
-
-                            <i class="fa-solid fa-circle-xmark"></i>
-
-                            Currently Unavailable
-
-                        </p>
+                                ${coffee.category}
+                            </p>
 
 
-                        <button
-                            class="unavailable-button"
-                            disabled>
+                            <p class="coffee-price">
 
-                            <i class="fa-solid fa-ban"></i>
+                                ₹${coffee.price}
 
-                            Not Available
+                            </p>
 
-                        </button>
+
+                            <p class="unavailable">
+
+                                <i class="fa-solid fa-circle-xmark"></i>
+
+                                Currently Unavailable
+
+                            </p>
+
+
+                            <button
+                                class="unavailable-button"
+                                disabled>
+
+                                <i class="fa-solid fa-ban"></i>
+
+                                Not Available
+
+                            </button>
+
+                        </div>
 
                     </div>
-
-                </div>
 
                 `;
 
@@ -492,7 +566,7 @@ function escapeQuotes(value) {
 
 /*
 =====================================
-INCREASE QUANTITY
+INCREASE PRODUCT QUANTITY
 =====================================
 */
 
@@ -504,6 +578,13 @@ function increaseQuantity(
         document.getElementById(
             `quantity-${coffeeId}`
         );
+
+
+    if (!quantityElement) {
+
+        return;
+
+    }
 
 
     let quantity =
@@ -523,7 +604,7 @@ function increaseQuantity(
 
 /*
 =====================================
-DECREASE QUANTITY
+DECREASE PRODUCT QUANTITY
 =====================================
 */
 
@@ -535,6 +616,13 @@ function decreaseQuantity(
         document.getElementById(
             `quantity-${coffeeId}`
         );
+
+
+    if (!quantityElement) {
+
+        return;
+
+    }
 
 
     let quantity =
@@ -572,6 +660,13 @@ function addToCart(
         document.getElementById(
             `quantity-${coffeeId}`
         );
+
+
+    if (!quantityElement) {
+
+        return;
+
+    }
 
 
     const quantity =
@@ -653,10 +748,18 @@ function updateCartCount() {
     );
 
 
-    document.getElementById(
-        "cartCount"
-    ).innerText =
-        totalQuantity;
+    const cartCount =
+        document.getElementById(
+            "cartCount"
+        );
+
+
+    if (cartCount) {
+
+        cartCount.innerText =
+            totalQuantity;
+
+    }
 
 }
 
@@ -669,9 +772,20 @@ OPEN CART
 
 function openCart() {
 
-    document.getElementById(
-        "cartSection"
-    ).classList.remove(
+    const cartSection =
+        document.getElementById(
+            "cartSection"
+        );
+
+
+    if (!cartSection) {
+
+        return;
+
+    }
+
+
+    cartSection.classList.remove(
         "hidden"
     );
 
@@ -689,9 +803,20 @@ CLOSE CART
 
 function closeCart() {
 
-    document.getElementById(
-        "cartSection"
-    ).classList.add(
+    const cartSection =
+        document.getElementById(
+            "cartSection"
+        );
+
+
+    if (!cartSection) {
+
+        return;
+
+    }
+
+
+    cartSection.classList.add(
         "hidden"
     );
 
@@ -712,6 +837,19 @@ function displayCart() {
         );
 
 
+    const cartTotal =
+        document.getElementById(
+            "cartTotal"
+        );
+
+
+    if (!cartItems) {
+
+        return;
+
+    }
+
+
     cartItems.innerHTML = "";
 
 
@@ -726,11 +864,11 @@ function displayCart() {
                 <i class="fa-solid fa-cart-shopping"></i>
 
                 <h3>
-                    Your cart is empty
+                    Your Cart Is Empty
                 </h3>
 
                 <p>
-                    Add some coffee to continue.
+                    Add some coffee or shakes.
                 </p>
 
             </div>
@@ -738,10 +876,12 @@ function displayCart() {
         `;
 
 
-        document.getElementById(
-            "cartTotal"
-        ).innerText =
-            "₹0";
+        if (cartTotal) {
+
+            cartTotal.innerText =
+                "₹0";
+
+        }
 
 
         return;
@@ -756,13 +896,12 @@ function displayCart() {
         item => {
 
 
-            const itemTotal =
+            const subtotal =
                 item.price *
                 item.quantity;
 
 
-            total +=
-                itemTotal;
+            total += subtotal;
 
 
             cartItems.innerHTML += `
@@ -782,7 +921,7 @@ function displayCart() {
 
                     <p>
                         Subtotal:
-                        ₹${itemTotal}
+                        ₹${subtotal}
                     </p>
 
 
@@ -800,7 +939,9 @@ function displayCart() {
 
 
                             <strong>
+
                                 ${item.quantity}
+
                             </strong>
 
 
@@ -835,10 +976,12 @@ function displayCart() {
     );
 
 
-    document.getElementById(
-        "cartTotal"
-    ).innerText =
-        `₹${total}`;
+    if (cartTotal) {
+
+        cartTotal.innerText =
+            `₹${total}`;
+
+    }
 
 }
 
@@ -861,11 +1004,14 @@ function increaseCartQuantity(
         );
 
 
-    if (item) {
+    if (!item) {
 
-        item.quantity++;
+        return;
 
     }
+
+
+    item.quantity++;
 
 
     updateCartCount();
@@ -985,8 +1131,7 @@ function placeOrder() {
                 item.quantity;
 
 
-            total +=
-                subtotal;
+            total += subtotal;
 
 
             orderSummary +=
@@ -1010,6 +1155,4 @@ function placeOrder() {
         customerCart
     );
 
-
-    
 }
