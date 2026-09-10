@@ -1010,4 +1010,6 @@ function placeOrder() {
         customerCart
     );
 
+
+    
 }
